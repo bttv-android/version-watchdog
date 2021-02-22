@@ -1,6 +1,6 @@
 import { getLatestUpdateDate } from './browser';
 import { getPreviousUpdatedAt } from './fs';
-import { setNewPreviousUpdatedAt, createOrUpdateIssue } from './hub';
+import { setNewPreviousUpdatedAt, createIssue } from './hub';
 
 async function main() {
   const lastUpdatedAt: string | undefined = await getLatestUpdateDate();
@@ -19,7 +19,7 @@ async function main() {
 
   console.log('update found!');
   await setNewPreviousUpdatedAt(lastUpdatedAt);
-  await createOrUpdateIssue(lastUpdatedAt);
+  await createIssue(previousUpdatedAt, lastUpdatedAt);
 }
 
 main().catch((err) => {

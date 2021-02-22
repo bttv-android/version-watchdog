@@ -2,7 +2,7 @@ name: run
 
 on:
   schedule:
-    - '0 */6 * * *' # every 6 hours
+    - '0 */2 * * *' # every 2 hours
 
 jobs:
   run:
@@ -16,3 +16,5 @@ jobs:
       - run: npm ci --no-audit
       - run: npm run build
       - run: npm start
+        env:
+          FFX_TOKEN: ${{ secrets.FFX_TOKEN }}

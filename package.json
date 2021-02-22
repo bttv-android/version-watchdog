@@ -23,12 +23,13 @@
     "build": "tsc -p tsconfig.release.json",
     "build:watch": "tsc -w -p tsconfig.release.json",
     "lint": "eslint . --ext .ts,.tsx",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test": "jest --coverage --passWithNoTests",
+    "test:watch": "jest --watch --passWithNoTests"
   },
   "license": "MIT",
   "dependencies": {
     "@octokit/rest": "^18.2.0",
+    "js-base64": "^3.6.0",
     "puppeteer": "^7.1.0",
     "tslib": "~2.0.3"
   }

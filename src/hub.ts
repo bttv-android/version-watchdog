@@ -1,26 +1,39 @@
 import { Octokit } from '@octokit/rest';
+import { Base64 } from 'js-base64';
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
+  auth: process.env.FFX_TOKEN,
 });
 
 export async function setNewPreviousUpdatedAt(s: string): Promise<void> {
   console.log('setNewPreviousUpdatedAt', s);
-  octokit.repos.createOrUpdateFileContents({
+  const old = await octokit.repos.getContent({
+    owner: 'bttv-android',
+    repo: 'version-watchdog',
+    path: 'previousUpdatedAt.txt',
+  });
+  const { sha } = old.data as { sha: string };
+  await octokit.repos.createOrUpdateFileContents({
     owner: 'bttv-android',
     repo: 'version-watchdog',
     path: 'previousUpdatedAt.txt',
     message: 'new version detected',
-    content: s,
+    content: Base64.encode(s),
+    sha: sha,
   });
 }
 
-export async function createOrUpdateIssue(
+export async function createIssue(
+  oldUpdateDate: string,
   newUpdateDate: string,
 ): Promise<void> {
-  octokit.issues.listForRepo({
+  const createRes = await octokit.issues.create({
     owner: 'bttv-android',
     repo: 'bttv',
-    creator: 'github-actions[bot]',
+    title: `Base update detected (${newUpdateDate})`,
+    body: `The watchdog detected a new update was pushed on ${newUpdateDate.trim()} (last record was on ${oldUpdateDate.trim()}).
+    Google Play: https://play.google.com/store/apps/details?id=tv.twitch.android.app&hl=en&gl=us`,
+    labels: ['base-update'],
   });
+  console.log(createRes);
 }
