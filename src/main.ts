@@ -9,7 +9,8 @@ async function main() {
     throw new Error('lastUpdatedAt is invalid');
   }
 
-  const previousUpdatedAt: string = await getPreviousUpdatedAt(lastUpdatedAt);
+  let previousUpdatedAt: string = await getPreviousUpdatedAt(lastUpdatedAt);
+  previousUpdatedAt = previousUpdatedAt.trim();
   console.log('previousUpdatedAt', previousUpdatedAt);
 
   if (lastUpdatedAt === previousUpdatedAt) {
