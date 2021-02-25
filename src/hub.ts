@@ -2,7 +2,7 @@ import { Octokit } from '@octokit/rest';
 import { Base64 } from 'js-base64';
 
 const octokit = new Octokit({
-  auth: process.env.FFX_TOKEN,
+  auth: process.env.BOT_TOKEN,
 });
 
 export async function setNewPreviousUpdatedAt(s: string): Promise<void> {
