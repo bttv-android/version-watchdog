@@ -32,7 +32,9 @@ export async function createIssue(
     repo: 'bttv',
     title: `Base update detected (${newUpdateDate})`,
     body: `The watchdog detected a new update was pushed on ${newUpdateDate.trim()} (last record was on ${oldUpdateDate.trim()}).
-    Google Play: https://play.google.com/store/apps/details?id=tv.twitch.android.app&hl=en&gl=us`,
+    Google Play: https://play.google.com/store/apps/details?id=tv.twitch.android.app&hl=en&gl=us
+    
+    cc: @bttv-android/developers`,
     labels: ['base-update'],
   });
   console.log(createRes);
