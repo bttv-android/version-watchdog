@@ -1,6 +1,6 @@
 # version-watchdog
 
-Every 2 hours a github workflow is triggered that checks for updates to the base twitch app on the playstore.
+Every 12 hours a github workflow is triggered that checks for updates to the base twitch app on the playstore.
 
 ## Available Scripts
 
