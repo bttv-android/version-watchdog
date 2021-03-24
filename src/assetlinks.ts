@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+import { createHash } from 'crypto';
 import fetch from 'node-fetch';
 import { getPreviousAssetlinksHash } from './fs';
 import { createAssetlinksIssue, setNewAssetlinksHash } from './hub';
@@ -25,8 +25,7 @@ export async function assetlinksWatchdog(): Promise<void> {
 
 async function getHash(): Promise<string> {
   const res = await fetch(URL);
-  return crypto
-    .createHash('sha256')
+  return createHash('sha256')
     .update(await res.text())
     .digest('hex');
 }
