@@ -9,24 +9,28 @@ export async function getPreviousUpdatedAt(fallback: string): Promise<string> {
   } catch (e) {
     if (e.code === 'ENOENT') {
       console.log('previousUpdatedAt.txt does not exist, use fallback');
+      fs.writeFileSync(pUaPath, fallback, { encoding: 'utf-8' });
+      await setNewPreviousUpdatedAt(fallback);
     }
-    fs.writeFileSync(pUaPath, fallback, { encoding: 'utf-8' });
-    await setNewPreviousUpdatedAt(fallback);
+
     console.warn(e);
     return fallback;
   }
 }
 
-export async function getPreviousAssetlinksHash(fallback: string): Promise<string> {
+export async function getPreviousAssetlinksHash(
+  fallback: string,
+): Promise<string> {
   const palhPath = path.join(__dirname, '../../assetlinksHash.txt');
   try {
     return fs.readFileSync(palhPath, 'utf-8');
   } catch (e) {
     if (e.code === 'ENOENT') {
       console.log('assetlinksHash.txt does not exist, use fallback');
+      fs.writeFileSync(palhPath, fallback, { encoding: 'utf-8' });
+      await setNewAssetlinksHash(fallback);
     }
-    fs.writeFileSync(palhPath, fallback, { encoding: 'utf-8' });
-    setNewAssetlinksHash(fallback);
+
     console.warn(e);
     return fallback;
   }
