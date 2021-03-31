@@ -42,10 +42,10 @@ export async function createIssue(
     owner: 'bttv-android',
     repo: 'bttv',
     title: `Base update detected (${newUpdateDate})`,
-    body: `The watchdog detected a new update was pushed on ${newUpdateDate.trim()} (last record was on ${oldUpdateDate.trim()}).
-    Google Play: https://play.google.com/store/apps/details?id=tv.twitch.android.app&hl=en&gl=us
-
-    cc: @bttv-android/developers`,
+    body:
+      `The watchdog detected a new update was pushed on ${newUpdateDate.trim()} (last record was on ${oldUpdateDate.trim()}).\n` +
+      `Google Play: https://play.google.com/store/apps/details?id=tv.twitch.android.app&hl=en&gl=us\n` +
+      `cc: @bttv-android/developers\n`,
     labels: ['base-update'],
   });
   console.log(createRes);
@@ -62,7 +62,7 @@ export async function createAssetlinksIssue(
     body:
       `The watchdog detected a new assetlinks.json (last record had hash ${oldHash.trim()}).\n` +
       `https://twitch.tv/.well-known/assetlinks.json\n` +
-      `cc: @bttv-android/developers`,
+      `cc: @bttv-android/developers\n`,
     labels: ['base-update'],
   });
   console.log(createRes);
