@@ -7,10 +7,14 @@ export async function getPreviousUpdatedAt(fallback: string): Promise<string> {
   try {
     return fs.readFileSync(pUaPath, 'utf-8');
   } catch (e) {
+    console.log(e.code);
+
     if (e.code === 'ENOENT') {
       console.log('previousUpdatedAt.txt does not exist, use fallback');
       fs.writeFileSync(pUaPath, fallback, { encoding: 'utf-8' });
       await setNewPreviousUpdatedAt(fallback);
+    } else {
+      throw e;
     }
 
     console.warn(e);
@@ -29,6 +33,8 @@ export async function getPreviousAssetlinksHash(
       console.log('assetlinksHash.txt does not exist, use fallback');
       fs.writeFileSync(palhPath, fallback, { encoding: 'utf-8' });
       await setNewAssetlinksHash(fallback);
+    } else {
+      throw e;
     }
 
     console.warn(e);
