@@ -1,9 +1,5 @@
-import { Octokit } from '@octokit/rest';
 import { Base64 } from 'js-base64';
-
-const octokit = new Octokit({
-  auth: process.env.BOT_TOKEN,
-});
+import octokit from './octokit';
 
 async function overwriteFile(
   file: string,
@@ -41,7 +37,7 @@ export async function createIssue(
   const createRes = await octokit.issues.create({
     owner: 'bttv-android',
     repo: 'bttv',
-    title: `Base update detected (${newUpdateDate})`,
+    title: `Base update detected (${newUpdateDate.trim()})`,
     body:
       `The watchdog detected a new update was pushed on ${newUpdateDate.trim()} (last record was on ${oldUpdateDate.trim()}).\n` +
       `Google Play: https://play.google.com/store/apps/details?id=tv.twitch.android.app&hl=en&gl=us\n` +
